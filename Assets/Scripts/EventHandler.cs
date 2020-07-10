@@ -8,6 +8,7 @@ public class EventHandler : MonoBehaviour
     public static EventHandler instance;
 
     public InvGridManager sc_InvGridManager;
+    // 현재 선택중인 아이템(드래그중인)
     public Transform SelectedItem = null;
 
     private void Awake()
@@ -15,20 +16,30 @@ public class EventHandler : MonoBehaviour
         instance = this;
     }
 
+    // 아이템 선택했을때
     public void SetSelectedItem(Transform item)
     {
         if (SelectedItem == null)
         {
             item.GetComponent<Image>().raycastTarget = false;
-
+            item.GetComponent<UI_Item>().m_isSelected = true;
             SelectedItem = item;
         }
         else
+        {
+            SelectedItem.GetComponent<UI_Item>().m_isSelected = false;
             SelectedItem = null;
+        }
+    }
+
+    // 색상 원래대로 되돌리기
+    public void SetPrevColor()
+    {
+        sc_InvGridManager.ChangeColorToPrevColor();
     }
 
     // 인벤 그리드에서 아이템사이즈에 맞는 슬롯 좌표 구하기
-    public void SetItemSizeOnGrid(Vert v, Hor h, UI_Slot parentSlot)
+    public void GetItemSizeOnGrid(Vert v, Hor h, UI_Slot parentSlot)
     {
         // 아이템 드래그중 아니면 검사 안함
         if (SelectedItem == null)
@@ -70,8 +81,6 @@ public class EventHandler : MonoBehaviour
             maxY = minY = y / 2;
         }
 
-        //print(maxY + "," + maxX + " " + minY + "," + minX);
-
         switch (v)
         {
             case Vert.UP:
@@ -100,7 +109,34 @@ public class EventHandler : MonoBehaviour
                 break;
         }
 
-        print("[" + upY + "," + leftX + "] ~ [" + downY + "," + rightX + "]");
         sc_InvGridManager.SetItemOnGrid(leftX, rightX, downY, upY);
+    }
+
+    // 슬롯 클릭했을때
+    public void ClickedSlot(UI_Slot parentSlot)
+    {
+        // 현재 드래그 중인 아이템이 없는 경우는??
+        // 클릭한 슬롯에 아이템이 있는지 검사
+        if(SelectedItem == null)
+        {
+            if (parentSlot.itemCode == null)
+                return;
+
+            sc_InvGridManager.GetItemOnSlot(parentSlot.itemCode);
+        }
+        // 드래그 중인 아이템 있음
+        // 슬롯에 배치해야함
+        else if(SelectedItem != null)
+        {
+            sc_InvGridManager.SetItemOnSlot();
+        }
+    }
+
+    public string GetItemCode()
+    {
+        if (SelectedItem == null)
+            return null;
+
+        return SelectedItem.GetComponent<UI_Item>().GetItemCode();
     }
 }

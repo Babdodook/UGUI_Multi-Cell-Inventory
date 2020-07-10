@@ -11,18 +11,26 @@ public class ItemSize
 
 public class UI_Item : MonoBehaviour, IPointerClickHandler
 {
-    public ItemSize SIZE = new ItemSize();
+    public Item itemInfo;
+    public ItemSize SIZE;
+    public string code;
+    public int x;
+    public int y;
     public bool m_isSelected = false;
 
     private void Awake()
     {
-        SIZE.X = 2;
-        SIZE.Y = 2;
+        itemInfo = new Item();
+        SIZE = new ItemSize();
+
+        itemInfo.code = code;
+        SIZE.X = x;
+        SIZE.Y = y;
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        m_isSelected = !m_isSelected;
+        //m_isSelected = !m_isSelected;
         EventHandler.instance.SetSelectedItem(this.transform);
     }
 
@@ -30,5 +38,10 @@ public class UI_Item : MonoBehaviour, IPointerClickHandler
     {
         if(m_isSelected)
             transform.position = Input.mousePosition;
+    }
+
+    public string GetItemCode()
+    {
+        return itemInfo.code;
     }
 }

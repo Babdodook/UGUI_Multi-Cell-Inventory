@@ -19,7 +19,7 @@ public enum Hor
     Max,
 }
 
-public class UI_Quad : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class UI_Quad : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler
 {
     UI_Slot parentSlot;
 
@@ -31,13 +31,17 @@ public class UI_Quad : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     // 마우스 포인터 들어옴
     public void OnPointerEnter(PointerEventData eventData)
     {
+        // 포인터 옮겼으니 이전에 검사했던 슬롯 색상 원래대로 되돌리기
+        EventHandler.instance.SetPrevColor();
+
+        // 현재 마우스 포인터 위치 검사
         CheckMousePoint();
     }
 
-    // 나감
-    public void OnPointerExit(PointerEventData eventData)
+    // 클릭했을때
+    public void OnPointerClick(PointerEventData eventData)
     {
-
+        EventHandler.instance.ClickedSlot(parentSlot);
     }
 
     void CheckMousePoint()
@@ -51,7 +55,7 @@ public class UI_Quad : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             case "1":
                 v = Vert.UP;
                 h = Hor.LEFT;
-                //print("1번들어옴");
+
                 break;
             case "2":
                 v = Vert.UP;
@@ -70,6 +74,6 @@ public class UI_Quad : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
                 break;
         }
 
-        EventHandler.instance.SetItemSizeOnGrid(v, h, parentSlot);
+        EventHandler.instance.GetItemSizeOnGrid(v, h, parentSlot);
     }
 }
