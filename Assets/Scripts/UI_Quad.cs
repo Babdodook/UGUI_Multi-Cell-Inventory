@@ -21,19 +21,37 @@ public enum Hor
 
 public class UI_Quad : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
+    UI_Slot parentSlot;
+
+    private void Awake()
+    {
+        parentSlot = GetComponentInParent<UI_Slot>();
+    }
+
     // 마우스 포인터 들어옴
     public void OnPointerEnter(PointerEventData eventData)
+    {
+        CheckMousePoint();
+    }
+
+    // 나감
+    public void OnPointerExit(PointerEventData eventData)
+    {
+
+    }
+
+    void CheckMousePoint()
     {
         Vert v = Vert.Max;
         Hor h = Hor.Max;
 
         // 4분면중에서 어느 면에 포인터가 위치하고 있는가?
-        switch(name)
+        switch (name)
         {
             case "1":
                 v = Vert.UP;
                 h = Hor.LEFT;
-
+                //print("1번들어옴");
                 break;
             case "2":
                 v = Vert.UP;
@@ -52,15 +70,6 @@ public class UI_Quad : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
                 break;
         }
 
-        EventHandler.instance.CheckSlotGrid(v, h);
+        EventHandler.instance.SetItemSizeOnGrid(v, h, parentSlot);
     }
-
-    
-
-    // 나감
-    public void OnPointerExit(PointerEventData eventData)
-    {
-
-    }
-
 }

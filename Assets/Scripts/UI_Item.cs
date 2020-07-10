@@ -11,7 +11,7 @@ public class ItemSize
 
 public class UI_Item : MonoBehaviour, IPointerClickHandler
 {
-    public ItemSize SIZE;
+    public ItemSize SIZE = new ItemSize();
     public bool m_isSelected = false;
 
     private void Awake()
