@@ -2,8 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum ITEM_TYPE
+{
+    Head,
+    Body,
+    Weapon,
+    WeaponSub,
+    Belt,
+    Bottoms,
+    Footwear,
+
+    Max
+}
+
 public class Item
 {
     public string name;
     public string code;
+    public ITEM_TYPE type;
 }

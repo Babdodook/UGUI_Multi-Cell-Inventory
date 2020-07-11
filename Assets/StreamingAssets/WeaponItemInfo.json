@@ -1,0 +1,37 @@
+[
+  {
+    "Sprite": "Sprites/Weapon/Weapon_0",
+    "Name": "무기1",
+    "Type": "Weapon",
+    "SizeX": "2",
+    "SizeY": "3"
+  },
+  {
+    "Sprite": "Sprites/Weapon/Weapon_1",
+    "Name": "무기2",
+    "Type": "Weapon",
+    "SizeX": "2",
+    "SizeY": "3"
+  },
+  {
+    "Sprite": "Sprites/Weapon/Weapon_2",
+    "Name": "무기3",
+    "Type": "Weapon",
+    "SizeX": "2",
+    "SizeY": "3"
+  },
+  {
+    "Sprite": "Sprites/Weapon/Weapon_3",
+    "Name": "무기4",
+    "Type": "Weapon",
+    "SizeX": "2",
+    "SizeY": "3"
+  },
+  {
+    "Sprite": "Sprites/Weapon/Weapon_4",
+    "Name": "무기5",
+    "Type": "Weapon",
+    "SizeX": "2",
+    "SizeY": "3"
+  }
+]

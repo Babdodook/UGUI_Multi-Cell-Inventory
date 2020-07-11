@@ -16,32 +16,16 @@ public class ItemContainer
         item = null;
         slots = null;
     }
-
-    /*
-    public ItemContainer(Transform _item, List<Transform> _slots)
-    {
-        item = _item;
-        slots = _slots;
-    }
-
-    public ItemContainer Clone()
-    {
-        ItemContainer copy = new ItemContainer();
-        copy.item = this.item;
-        copy.slots = new List<Transform>(this.slots);
-
-        return copy;
-    }
-    */
 }
 
 public class InvGridManager : MonoBehaviour
 {
     public Transform SlotPrototype;
     public Transform SlotGrid;
+    public Transform Items;
 
     int GRIDSIZE_X = 10;
-    int GRIDSIZE_Y = 10;
+    int GRIDSIZE_Y = 13;
     Vector3 slotOriginPosition;
 
     // 슬롯배열
@@ -58,6 +42,7 @@ public class InvGridManager : MonoBehaviour
     bool canPlaceItem;
     bool canSwapItem;
     bool outOfRange;
+    UI_Slot slotScript;
 
     private void Awake()
     {
@@ -83,6 +68,14 @@ public class InvGridManager : MonoBehaviour
                 item.GetComponentInChildren<Text>().text = y + "," + x;
                 item.position = new Vector3(slotOriginPosition.x + x * 30, slotOriginPosition.y - y * 30, 0);
 
+                if (x == 0 || x == GRIDSIZE_X - 1 ||
+                    y == 0 || y == GRIDSIZE_X - 1) 
+                {
+                    item.GetComponent<UI_Slot>().isEdge = true;
+                }
+                else
+                    item.GetComponent<UI_Slot>().isEdge = false;
+
                 item.SetParent(SlotGrid);
                 item.gameObject.SetActive(true);
                 SlotArray[y, x] = item;
@@ -92,6 +85,11 @@ public class InvGridManager : MonoBehaviour
 
     public void SetItemOnGrid(int leftX, int rightX, int downY, int upY)
     {
+        SlotOnItem.Clear();
+        canPlaceItem = false;
+        canSwapItem = false;
+        outOfRange = false;
+
         // 아이템 사이즈에 맞는 슬롯들을 찾아서
         FindSlot(leftX, rightX, downY, upY);
         // 슬롯의 상태를 검사한다.
@@ -135,19 +133,17 @@ public class InvGridManager : MonoBehaviour
         Color inUseColor;
         if (isOverlapped())
         {
-            //print("다른것과겹침");
             inUseColor = Color.red;
             canPlaceItem = false;
             canSwapItem = false;
         }
         else
         {
-            //print("안겹침");
             inUseColor = Color.green;
             canPlaceItem = true;
         }
 
-        UI_Slot slotScript;
+        
         for (int i = 0; i < SlotOnItem.Count; i++)
         {
             // 지금 사용중인 색깔 저장해놓음
@@ -178,7 +174,6 @@ public class InvGridManager : MonoBehaviour
     bool isOverlapped()
     {
         List<Transform> inUseSlots = new List<Transform>();
-        UI_Slot slotScript;
 
         for (int i = 0; i < SlotOnItem.Count; i++)
         {
@@ -215,7 +210,6 @@ public class InvGridManager : MonoBehaviour
     // 이전 색상으로 되돌리기
     public void ChangeColorToPrevColor()
     {
-        UI_Slot slotScript;
         for (int i = 0; i < SlotOnItem.Count; i++) 
         {
             slotScript = SlotOnItem[i].GetComponent<UI_Slot>();
@@ -226,7 +220,7 @@ public class InvGridManager : MonoBehaviour
         SlotOnItem.Clear();
     }
 
-    string isCanSwap()
+    string GetSwapCode()
     {
         for (int i = 0; i < SlotOnItem.Count; i++) 
         {
@@ -239,17 +233,15 @@ public class InvGridManager : MonoBehaviour
         return null;
     }
 
-    
-    
+
     // 슬롯에 아이템 배치하기
     public void SetItemOnSlot()
     {
         // 배치 가능
         if(canPlaceItem)
         {            
-            GetItemOnSlot(isCanSwap());
+            GetItemOnSlot(GetSwapCode());
 
-            UI_Slot slotScript;
             // 컨테이너 생성
             ItemContainer value = new ItemContainer();
 
@@ -266,6 +258,7 @@ public class InvGridManager : MonoBehaviour
             // 딕셔너리에 아이템 추가
             ItemDictionary.Add(key, value);
             EventHandler.instance.SelectedItem.position = GetPivotPosition();
+            EventHandler.instance.SelectedItem.SetParent(Items);
             EventHandler.instance.SetSelectedItem(null);
 
             if (canSwapItem)
@@ -282,15 +275,16 @@ public class InvGridManager : MonoBehaviour
         if (itemCode == null)
             return;
 
+        if (EventHandler.instance.SelectedItem == null)
+            canSwapItem = false;
+
         // 아이템 가져옴
         ItemContainer container = ItemDictionary[itemCode];
-        if(canSwapItem)
+        if (canSwapItem)
             tempItem = container.item;
         else
             EventHandler.instance.SetSelectedItem(container.item);
         
-
-        UI_Slot slotScript;
         for (int i = 0; i < container.slots.Count; i++)
         {
             slotScript = container.slots[i].GetComponent<UI_Slot>();
@@ -301,13 +295,9 @@ public class InvGridManager : MonoBehaviour
             tempSlotList = new List<Transform>(container.slots);
         else
             SlotOnItem = new List<Transform>(container.slots);
-        
 
         // 아이템 딕셔너리에서 제거
-        if (ItemDictionary.Remove(itemCode))
-            print("삭제 성공");
-        else
-            print("해당 키 없음");
+        ItemDictionary.Remove(itemCode);
     }
 
     // 아이템을 놓으려는 슬롯들의 중앙 좌표를 구한다

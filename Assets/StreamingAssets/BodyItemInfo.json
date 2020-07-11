@@ -1,0 +1,72 @@
+[
+  {
+    "Sprite": "Sprites/Body/Body_0",
+    "Name": "상의1",
+    "Type": "Body",
+    "SizeX": "2",
+    "SizeY": "2"
+  },
+  {
+    "Sprite": "Sprites/Body/Body_1",
+    "Name": "상의2",
+    "Type": "Body",
+    "SizeX": "2",
+    "SizeY": "2"
+  },
+  {
+    "Sprite": "Sprites/Body/Body_2",
+    "Name": "상의3",
+    "Type": "Body",
+    "SizeX": "2",
+    "SizeY": "2"
+  },
+  {
+    "Sprite": "Sprites/Body/Body_3",
+    "Name": "상의4",
+    "Type": "Body",
+    "SizeX": "2",
+    "SizeY": "2"
+  },
+  {
+    "Sprite": "Sprites/Body/Body_4",
+    "Name": "상의5",
+    "Type": "Body",
+    "SizeX": "2",
+    "SizeY": "2"
+  },
+  {
+    "Sprite": "Sprites/Body/Body_5",
+    "Name": "상의6",
+    "Type": "Body",
+    "SizeX": "2",
+    "SizeY": "2"
+  },
+  {
+    "Sprite": "Sprites/Body/Body_6",
+    "Name": "상의7",
+    "Type": "Body",
+    "SizeX": "2",
+    "SizeY": "2"
+  },
+  {
+    "Sprite": "Sprites/Body/Body_7",
+    "Name": "상의8",
+    "Type": "Body",
+    "SizeX": "2",
+    "SizeY": "2"
+  },
+  {
+    "Sprite": "Sprites/Body/Body_8",
+    "Name": "상의9",
+    "Type": "Body",
+    "SizeX": "2",
+    "SizeY": "2"
+  },
+  {
+    "Sprite": "Sprites/Body/Body_9",
+    "Name": "상의10",
+    "Type": "Body",
+    "SizeX": "2",
+    "SizeY": "2"
+  }
+]

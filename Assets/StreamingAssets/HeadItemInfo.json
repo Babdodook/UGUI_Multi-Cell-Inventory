@@ -1,0 +1,72 @@
+[
+  {
+    "Sprite": "Sprites/Head/Head_0",
+    "Name": "머리1",
+    "Type": "Head",
+    "SizeX": "2",
+    "SizeY": "2"
+  },
+  {
+    "Sprite": "Sprites/Head/Head_1",
+    "Name": "머리2",
+    "Type": "Head",
+    "SizeX": "2",
+    "SizeY": "2"
+  },
+  {
+    "Sprite": "Sprites/Head/Head_2",
+    "Name": "머리3",
+    "Type": "Head",
+    "SizeX": "2",
+    "SizeY": "2"
+  },
+  {
+    "Sprite": "Sprites/Head/Head_3",
+    "Name": "머리4",
+    "Type": "Head",
+    "SizeX": "2",
+    "SizeY": "2"
+  },
+  {
+    "Sprite": "Sprites/Head/Head_4",
+    "Name": "머리5",
+    "Type": "Head",
+    "SizeX": "2",
+    "SizeY": "2"
+  },
+  {
+    "Sprite": "Sprites/Head/Head_5",
+    "Name": "머리6",
+    "Type": "Head",
+    "SizeX": "2",
+    "SizeY": "2"
+  },
+  {
+    "Sprite": "Sprites/Head/Head_6",
+    "Name": "머리7",
+    "Type": "Head",
+    "SizeX": "2",
+    "SizeY": "2"
+  },
+  {
+    "Sprite": "Sprites/Head/Head_7",
+    "Name": "머리8",
+    "Type": "Head",
+    "SizeX": "2",
+    "SizeY": "2"
+  },
+  {
+    "Sprite": "Sprites/Head/Head_8",
+    "Name": "머리9",
+    "Type": "Head",
+    "SizeX": "2",
+    "SizeY": "2"
+  },
+  {
+    "Sprite": "Sprites/Head/Head_9",
+    "Name": "머리10",
+    "Type": "Head",
+    "SizeX": "2",
+    "SizeY": "2"
+  }
+]

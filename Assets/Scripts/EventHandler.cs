@@ -8,6 +8,10 @@ public class EventHandler : MonoBehaviour
     public static EventHandler instance;
 
     public InvGridManager sc_InvGridManager;
+    public EquipmentManager sc_EquipManager;
+    public ItemGenerator sc_ItemGenerator;
+    public Transform CreateItemPanel;
+    public Transform OnHover;
     // 현재 선택중인 아이템(드래그중인)
     public Transform SelectedItem = null;
 
@@ -24,6 +28,7 @@ public class EventHandler : MonoBehaviour
             item.GetComponent<Image>().raycastTarget = false;
             item.GetComponent<UI_Item>().m_isSelected = true;
             SelectedItem = item;
+            SelectedItem.SetParent(OnHover);
         }
         else
         {
@@ -138,5 +143,44 @@ public class EventHandler : MonoBehaviour
             return null;
 
         return SelectedItem.GetComponent<UI_Item>().GetItemCode();
+    }
+
+    public ITEM_TYPE GetItemType()
+    {
+        if (SelectedItem == null)
+            return ITEM_TYPE.Max;
+
+        return SelectedItem.GetComponent<UI_Item>().GetItemType();
+    }
+
+    public void ClickedEquipmentSlot(Transform eSlot)
+    {
+        sc_EquipManager.CheckSlot(eSlot);
+    }
+
+    public void ClickedCreateItemBtn()
+    {
+        CreateItemPanel.gameObject.SetActive(!CreateItemPanel.gameObject.activeSelf);
+    }
+
+    public void ClickedViewBtn(ITEM_TYPE type)
+    {
+        sc_ItemGenerator.CreateItemOnScrollView(type);
+    }
+
+    public void CreateItem(ViewItem _item)
+    {
+        print(_item.t_name.text);
+        sc_ItemGenerator.CreateItem(_item);
+    }
+
+    public void RemoveItem()
+    {
+        if(SelectedItem != null)
+        {
+            sc_ItemGenerator.RemoveItem(SelectedItem);
+            Destroy(SelectedItem.gameObject);
+            SelectedItem = null;
+        }
     }
 }

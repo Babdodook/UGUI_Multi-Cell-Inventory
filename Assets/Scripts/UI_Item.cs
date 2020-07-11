@@ -13,19 +13,19 @@ public class UI_Item : MonoBehaviour, IPointerClickHandler
 {
     public Item itemInfo;
     public ItemSize SIZE;
-    public string code;
-    public int x;
-    public int y;
+    //public ITEM_TYPE type;
+    //public string code;
+    //public int x;
+    //public int y;
     public bool m_isSelected = false;
 
     private void Awake()
     {
-        itemInfo = new Item();
-        SIZE = new ItemSize();
 
-        itemInfo.code = code;
-        SIZE.X = x;
-        SIZE.Y = y;
+        //itemInfo.code = code;
+        //itemInfo.type = type;
+        //SIZE.X = x;
+        //SIZE.Y = y;
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -43,5 +43,10 @@ public class UI_Item : MonoBehaviour, IPointerClickHandler
     public string GetItemCode()
     {
         return itemInfo.code;
+    }
+
+    public ITEM_TYPE GetItemType()
+    {
+        return itemInfo.type;
     }
 }

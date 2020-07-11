@@ -1,0 +1,72 @@
+[
+  {
+    "Sprite": "Sprites/Footwear/Footwear_0",
+    "Name": "신발1",
+    "Type": "Footwear",
+    "SizeX": "2",
+    "SizeY": "2"
+  },
+  {
+    "Sprite": "Sprites/Footwear/Footwear_1",
+    "Name": "신발2",
+    "Type": "Footwear",
+    "SizeX": "2",
+    "SizeY": "2"
+  },
+  {
+    "Sprite": "Sprites/Footwear/Footwear_2",
+    "Name": "신발3",
+    "Type": "Footwear",
+    "SizeX": "2",
+    "SizeY": "2"
+  },
+  {
+    "Sprite": "Sprites/Footwear/Footwear_3",
+    "Name": "신발4",
+    "Type": "Footwear",
+    "SizeX": "2",
+    "SizeY": "2"
+  },
+  {
+    "Sprite": "Sprites/Footwear/Footwear_4",
+    "Name": "신발5",
+    "Type": "Footwear",
+    "SizeX": "2",
+    "SizeY": "2"
+  },
+  {
+    "Sprite": "Sprites/Footwear/Footwear_5",
+    "Name": "신발6",
+    "Type": "Footwear",
+    "SizeX": "2",
+    "SizeY": "2"
+  },
+  {
+    "Sprite": "Sprites/Footwear/Footwear_6",
+    "Name": "신발7",
+    "Type": "Footwear",
+    "SizeX": "2",
+    "SizeY": "2"
+  },
+  {
+    "Sprite": "Sprites/Footwear/Footwear_7",
+    "Name": "신발8",
+    "Type": "Footwear",
+    "SizeX": "2",
+    "SizeY": "2"
+  },
+  {
+    "Sprite": "Sprites/Footwear/Footwear_8",
+    "Name": "신발9",
+    "Type": "Footwear",
+    "SizeX": "2",
+    "SizeY": "2"
+  },
+  {
+    "Sprite": "Sprites/Footwear/Footwear_9",
+    "Name": "신발10",
+    "Type": "Footwear",
+    "SizeX": "2",
+    "SizeY": "2"
+  }
+]

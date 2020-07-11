@@ -16,6 +16,7 @@ public class UI_Slot : MonoBehaviour
     public Image frontImg;
     public Color prevColor;
     public string itemCode;
+    public bool isEdge;
 
     private void Awake()
     {

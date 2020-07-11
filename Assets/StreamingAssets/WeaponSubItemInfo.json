@@ -1,0 +1,37 @@
+[
+  {
+    "Sprite": "Sprites/WeaponSub/WeaponSub_0",
+    "Name": "보조무기1",
+    "Type": "WeaponSub",
+    "SizeX": "2",
+    "SizeY": "3"
+  },
+  {
+    "Sprite": "Sprites/WeaponSub/WeaponSub_1",
+    "Name": "보조무기2",
+    "Type": "WeaponSub",
+    "SizeX": "2",
+    "SizeY": "3"
+  },
+  {
+    "Sprite": "Sprites/WeaponSub/WeaponSub_2",
+    "Name": "보조무기3",
+    "Type": "WeaponSub",
+    "SizeX": "2",
+    "SizeY": "3"
+  },
+  {
+    "Sprite": "Sprites/WeaponSub/WeaponSub_3",
+    "Name": "보조무기4",
+    "Type": "WeaponSub",
+    "SizeX": "2",
+    "SizeY": "3"
+  },
+  {
+    "Sprite": "Sprites/WeaponSub/WeaponSub_4",
+    "Name": "보조무기5",
+    "Type": "WeaponSub",
+    "SizeX": "2",
+    "SizeY": "3"
+  }
+]
