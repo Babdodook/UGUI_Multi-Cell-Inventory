@@ -1,7 +1,14 @@
 [
   {
-    "Sprite": "",
-    "Name": "하의1",
+    "Sprite": "Sprites/Bottoms/아디다스",
+    "Name": "아디다스",
+    "Type": "Bottoms",
+    "SizeX": "2",
+    "SizeY": "2"
+  },
+  {
+    "Sprite": "Sprites/Bottoms/나이키",
+    "Name": "나이키",
     "Type": "Bottoms",
     "SizeX": "2",
     "SizeY": "2"

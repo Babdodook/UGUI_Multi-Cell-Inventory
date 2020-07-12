@@ -107,7 +107,7 @@ public class ItemGenerator : MonoBehaviour
                                                     infoList[i].Type,
                                                     infoList[i].SizeX,
                                                     infoList[i].SizeY );
-            item.GetComponent<RectTransform>().anchoredPosition = new Vector3(originPos.x, originPos.y + 50 * i, 0);
+            //item.GetComponent<RectTransform>().anchoredPosition = new Vector3(originPos.x, originPos.y + 100 * i, 0);
 
             item.SetParent(ScrollContent);
             item.gameObject.SetActive(true);

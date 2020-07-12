@@ -24,8 +24,8 @@ public class InvGridManager : MonoBehaviour
     public Transform SlotGrid;
     public Transform Items;
 
-    int GRIDSIZE_X = 10;
-    int GRIDSIZE_Y = 13;
+    public int GRIDSIZE_X;
+    public int GRIDSIZE_Y;
     Vector3 slotOriginPosition;
 
     // 슬롯배열

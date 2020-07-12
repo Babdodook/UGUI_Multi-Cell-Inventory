@@ -1,7 +1,21 @@
 [
   {
-    "Sprite": "",
+    "Sprite": "Sprites/Belt/존시나벨트",
+    "Name": "존시나벨트",
+    "Type": "Belt",
+    "SizeX": "2",
+    "SizeY": "1"
+  },
+  {
+    "Sprite": "Sprites/Belt/벨트1",
     "Name": "벨트1",
+    "Type": "Belt",
+    "SizeX": "2",
+    "SizeY": "1"
+  },
+  {
+    "Sprite": "Sprites/Belt/벨트2",
+    "Name": "벨트2",
     "Type": "Belt",
     "SizeX": "2",
     "SizeY": "1"
