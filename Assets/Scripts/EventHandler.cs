@@ -171,7 +171,7 @@ public class EventHandler : MonoBehaviour
 
     public void CreateItem(ViewItem _item)
     {
-        print(_item.t_name.text);
+        //print(_item.t_name.text);
         sc_ItemGenerator.CreateItem(_item);
     }
 
@@ -187,6 +187,7 @@ public class EventHandler : MonoBehaviour
 
     public void ClickedSortButton()
     {
-        sc_InvGridManager.Sort();
+        if(SelectedItem == null)
+            sc_InvGridManager.Sort();
     }
 }

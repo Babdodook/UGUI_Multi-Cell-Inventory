@@ -137,7 +137,7 @@ public class ItemGenerator : MonoBehaviour
     // 아이템 생성하기
     public void CreateItem(ViewItem _item)
     {
-        print(_item.t_name.text);
+        //print(_item.t_name.text);
 
         var item = Instantiate(itemPrototype);
         item.position = itemPrototype.position;

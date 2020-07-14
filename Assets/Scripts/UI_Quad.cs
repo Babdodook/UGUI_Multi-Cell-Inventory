@@ -19,7 +19,7 @@ public enum Hor
     Max,
 }
 
-public class UI_Quad : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler, IPointerExitHandler
+public class UI_Quad : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler
 {
     UI_Slot parentSlot;
 
@@ -42,12 +42,6 @@ public class UI_Quad : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler
     public void OnPointerClick(PointerEventData eventData)
     {
         EventHandler.instance.ClickedSlot(parentSlot);
-    }
-
-    public void OnPointerExit(PointerEventData eventData)
-    {
-        if(parentSlot.isEdge)
-            EventHandler.instance.SetPrevColor();
     }
 
     void CheckMousePoint()

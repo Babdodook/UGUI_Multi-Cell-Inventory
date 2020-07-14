@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -69,7 +66,7 @@ public class InvGridManager : MonoBehaviour
                 item.position = new Vector3(slotOriginPosition.x + x * 30, slotOriginPosition.y - y * 30, 0);
 
                 if (x == 0 || x == GRIDSIZE_X - 1 ||
-                    y == 0 || y == GRIDSIZE_X - 1) 
+                    y == 0 || y == GRIDSIZE_X - 1)
                 {
                     item.GetComponent<UI_Slot>().isEdge = true;
                 }
@@ -110,9 +107,9 @@ public class InvGridManager : MonoBehaviour
             outOfRange = false;
         }
 
-        for (int y = 0; y < GRIDSIZE_Y; y++) 
+        for (int y = 0; y < GRIDSIZE_Y; y++)
         {
-            for (int x = 0; x < GRIDSIZE_X; x++) 
+            for (int x = 0; x < GRIDSIZE_X; x++)
             {
                 // 리스트에 추가
                 if ((leftX <= x && x <= rightX) &&
@@ -143,7 +140,7 @@ public class InvGridManager : MonoBehaviour
             canPlaceItem = true;
         }
 
-        
+
         for (int i = 0; i < SlotOnItem.Count; i++)
         {
             // 지금 사용중인 색깔 저장해놓음
@@ -151,7 +148,7 @@ public class InvGridManager : MonoBehaviour
             slotScript.prevColor = slotScript.frontImg.color;
 
             // 인벤토리 그리드 범위 벗어난 경우엔 색깔 표시 안함
-            if(outOfRange)
+            if (outOfRange)
             {
                 canPlaceItem = false;
                 continue;
@@ -210,7 +207,7 @@ public class InvGridManager : MonoBehaviour
     // 이전 색상으로 되돌리기
     public void ChangeColorToPrevColor()
     {
-        for (int i = 0; i < SlotOnItem.Count; i++) 
+        for (int i = 0; i < SlotOnItem.Count; i++)
         {
             slotScript = SlotOnItem[i].GetComponent<UI_Slot>();
             slotScript.frontImg.color = slotScript.prevColor;
@@ -222,7 +219,7 @@ public class InvGridManager : MonoBehaviour
 
     string GetSwapCode()
     {
-        for (int i = 0; i < SlotOnItem.Count; i++) 
+        for (int i = 0; i < SlotOnItem.Count; i++)
         {
             if (SlotOnItem[i].GetComponent<UI_Slot>().itemCode != null)
             {
@@ -238,14 +235,14 @@ public class InvGridManager : MonoBehaviour
     public void SetItemOnSlot()
     {
         // 배치 가능
-        if(canPlaceItem)
-        {            
+        if (canPlaceItem)
+        {
             GetItemOnSlot(GetSwapCode());
 
             // 컨테이너 생성
             ItemContainer value = new ItemContainer();
 
-            for (int i = 0; i < SlotOnItem.Count; i++) 
+            for (int i = 0; i < SlotOnItem.Count; i++)
             {
                 slotScript = SlotOnItem[i].GetComponent<UI_Slot>();
                 slotScript.SetInUse(EventHandler.instance.GetItemCode());
@@ -284,14 +281,14 @@ public class InvGridManager : MonoBehaviour
             tempItem = container.item;
         else
             EventHandler.instance.SetSelectedItem(container.item);
-        
+
         for (int i = 0; i < container.slots.Count; i++)
         {
             slotScript = container.slots[i].GetComponent<UI_Slot>();
             slotScript.SetNotUse();
         }
 
-        if(canSwapItem)
+        if (canSwapItem)
             tempSlotList = new List<Transform>(container.slots);
         else
             SlotOnItem = new List<Transform>(container.slots);
@@ -307,7 +304,7 @@ public class InvGridManager : MonoBehaviour
         Vector3 EndPosition = SlotOnItem[SlotOnItem.Count - 1].position;
 
         Vector3 DesiredPosition =
-            new Vector3( StartPosition.x + (EndPosition.x - StartPosition.x) / 2,
+            new Vector3(StartPosition.x + (EndPosition.x - StartPosition.x) / 2,
                          StartPosition.y + (EndPosition.y - StartPosition.y) / 2, 0);
 
         return DesiredPosition;
@@ -316,24 +313,23 @@ public class InvGridManager : MonoBehaviour
     // 정렬하기(타입순서대로)
     public void Sort()
     {
-        SlotOnItem.Clear();
-
         // 슬롯 아이템 코드 클리어
-        for (int y = 0; y < GRIDSIZE_Y; y++) 
+        for (int y = 0; y < GRIDSIZE_Y; y++)
         {
             for (int x = 0; x < GRIDSIZE_X; x++)
             {
                 slotScript = SlotArray[y, x].GetComponent<UI_Slot>();
                 slotScript.itemCode = null;
+                slotScript.m_slotState = SLOT_STATE.notUse;
+                slotScript.prevColor = Color.white;
+                slotScript.SetColor(slotScript.prevColor);
             }
         }
 
         Stack<Transform> Items = new Stack<Transform>();
         UI_Item itemScript;
 
-        
-
-        for (int i = 0; i < (int)ITEM_TYPE.Max; i++) 
+        for (int i = 0; i < (int)ITEM_TYPE.Max; i++)
         {
             // 아이템 딕셔너리에서 찾아봄
             foreach (KeyValuePair<string, ItemContainer> items in ItemDictionary)
@@ -348,22 +344,59 @@ public class InvGridManager : MonoBehaviour
             }
         }
 
+        if (Items.Count == 0)
+            return;
+
         ItemSize size = new ItemSize();
         size.X = 0;
         size.Y = 0;
-        for (int j = 0; j < Items.Count; j++)
+        int Max = Items.Count;
+
+        SlotOnItem.Clear();
+        for (int i = 0; i < Max; i++)
         {
             itemScript = Items.Pop().GetComponent<UI_Item>();
-
+            
+            bool escapeFlag = false;
             // 그리드 사이즈 체크
-            if( size.X + itemScript.SIZE.X-1 < GRIDSIZE_X &&
-                size.Y + itemScript.SIZE.Y-1 < GRIDSIZE_Y)
+            for (int y = 0; y < GRIDSIZE_Y; y++)
             {
-                for (int startY = size.Y; startY < size.Y + itemScript.SIZE.Y - 1; startY++) 
+                for (int x = 0; x < GRIDSIZE_X; x++)
                 {
+                    // 비어 있는 슬롯만 검사
+                    if (SlotArray[y, x].GetComponent<UI_Slot>().itemCode == null)
+                    {
+                        // 그리드 사이즈 벗어나는지 확인, 벗어나면 다음 슬롯 검사
+                        if (y + itemScript.SIZE.Y - 1 > GRIDSIZE_Y || x + itemScript.SIZE.X - 1 > GRIDSIZE_X)
+                            continue;
 
+                        // 사이즈 벗어나지 않으면 배치하는 작업
+                        for (int startY = y; startY < y + itemScript.SIZE.Y; startY++)
+                        {
+                            for (int startX = x; startX < x + itemScript.SIZE.X; startX++)
+                            {
+                                SlotOnItem.Add(SlotArray[startY, startX]);
+
+                                slotScript = SlotArray[startY, startX].GetComponent<UI_Slot>();
+                                slotScript.itemCode = itemScript.itemInfo.code;
+                                slotScript.m_slotState = SLOT_STATE.inUse;
+                                slotScript.prevColor = Color.white;
+                                slotScript.SetColor(Color.blue);
+                            }
+                        }
+                        ItemDictionary[itemScript.itemInfo.code].slots = new List<Transform>(SlotOnItem);
+
+                        itemScript.gameObject.transform.position = GetPivotPosition();
+                        SlotOnItem.Clear();
+
+                        escapeFlag = true;
+                        break;
+                    }
                 }
+                if (escapeFlag)
+                    break;
             }
         }
+
     }
 }
