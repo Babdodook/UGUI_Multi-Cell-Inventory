@@ -11,6 +11,7 @@ public class EventHandler : MonoBehaviour
     public EquipmentManager sc_EquipManager;
     public ItemGenerator sc_ItemGenerator;
     public Transform CreateItemPanel;
+    public Transform SortPanel;
     public Transform OnHover;
     // 현재 선택중인 아이템(드래그중인)
     public Transform SelectedItem = null;
@@ -182,5 +183,10 @@ public class EventHandler : MonoBehaviour
             Destroy(SelectedItem.gameObject);
             SelectedItem = null;
         }
+    }
+
+    public void ClickedSortButton()
+    {
+        sc_InvGridManager.Sort();
     }
 }

@@ -312,4 +312,58 @@ public class InvGridManager : MonoBehaviour
 
         return DesiredPosition;
     }
+
+    // 정렬하기(타입순서대로)
+    public void Sort()
+    {
+        SlotOnItem.Clear();
+
+        // 슬롯 아이템 코드 클리어
+        for (int y = 0; y < GRIDSIZE_Y; y++) 
+        {
+            for (int x = 0; x < GRIDSIZE_X; x++)
+            {
+                slotScript = SlotArray[y, x].GetComponent<UI_Slot>();
+                slotScript.itemCode = null;
+            }
+        }
+
+        Stack<Transform> Items = new Stack<Transform>();
+        UI_Item itemScript;
+
+        
+
+        for (int i = 0; i < (int)ITEM_TYPE.Max; i++) 
+        {
+            // 아이템 딕셔너리에서 찾아봄
+            foreach (KeyValuePair<string, ItemContainer> items in ItemDictionary)
+            {
+                itemScript = items.Value.item.GetComponent<UI_Item>();
+                // 찾는 타입이 맞으면
+                if (itemScript.itemInfo.type == (ITEM_TYPE)i)
+                {
+                    // 스택에 쌓아둠
+                    Items.Push(items.Value.item);
+                }
+            }
+        }
+
+        ItemSize size = new ItemSize();
+        size.X = 0;
+        size.Y = 0;
+        for (int j = 0; j < Items.Count; j++)
+        {
+            itemScript = Items.Pop().GetComponent<UI_Item>();
+
+            // 그리드 사이즈 체크
+            if( size.X + itemScript.SIZE.X-1 < GRIDSIZE_X &&
+                size.Y + itemScript.SIZE.Y-1 < GRIDSIZE_Y)
+            {
+                for (int startY = size.Y; startY < size.Y + itemScript.SIZE.Y - 1; startY++) 
+                {
+
+                }
+            }
+        }
+    }
 }
