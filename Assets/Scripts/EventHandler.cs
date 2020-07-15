@@ -53,9 +53,11 @@ public class EventHandler : MonoBehaviour
 
         UI_Item item = SelectedItem.GetComponent<UI_Item>();
 
+        // 아이템 사이즈
         int x = item.SIZE.X;
         int y = item.SIZE.Y;
 
+        // 왼쪽 상단, 오른쪽 하단 값
         int maxX, minX;
         int maxY, minY;
 
@@ -63,6 +65,7 @@ public class EventHandler : MonoBehaviour
         int rightX, leftX;
         upY = downY = rightX = leftX = 0;
 
+        // 짝수일때와 홀수일때 좌표 계산
         // 짝
         if (x % 2 == 0)
         {
@@ -87,6 +90,7 @@ public class EventHandler : MonoBehaviour
             maxY = minY = y / 2;
         }
 
+        // 4분면중 어느곳에 마우스 포인터가 위치하는지
         switch (v)
         {
             case Vert.UP:
@@ -138,6 +142,7 @@ public class EventHandler : MonoBehaviour
         }
     }
 
+    // 아이템 코드 가져오기
     public string GetItemCode()
     {
         if (SelectedItem == null)
@@ -146,6 +151,7 @@ public class EventHandler : MonoBehaviour
         return SelectedItem.GetComponent<UI_Item>().GetItemCode();
     }
 
+    // 아이템 타입 가져오기
     public ITEM_TYPE GetItemType()
     {
         if (SelectedItem == null)
@@ -154,27 +160,32 @@ public class EventHandler : MonoBehaviour
         return SelectedItem.GetComponent<UI_Item>().GetItemType();
     }
 
+    // 장비창 클릭 했을때
     public void ClickedEquipmentSlot(Transform eSlot)
     {
         sc_EquipManager.CheckSlot(eSlot);
     }
 
+    // 아이템 생성버튼 클릭했을때
     public void ClickedCreateItemBtn()
     {
+        // 생성 패널 켜기, 끄기
         CreateItemPanel.gameObject.SetActive(!CreateItemPanel.gameObject.activeSelf);
     }
 
+    // 아이템 카테고리 클릭하면 스크롤뷰에 해당 타입의 아이템 목록 보여주기
     public void ClickedViewBtn(ITEM_TYPE type)
     {
         sc_ItemGenerator.CreateItemOnScrollView(type);
     }
 
+    // 아이템 생성하기
     public void CreateItem(ViewItem _item)
     {
-        //print(_item.t_name.text);
         sc_ItemGenerator.CreateItem(_item);
     }
 
+    // 아이템 삭제하기
     public void RemoveItem()
     {
         if(SelectedItem != null)
@@ -185,6 +196,7 @@ public class EventHandler : MonoBehaviour
         }
     }
 
+    // 정렬하기
     public void ClickedSortButton()
     {
         if(SelectedItem == null)

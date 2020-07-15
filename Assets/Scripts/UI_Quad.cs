@@ -44,6 +44,7 @@ public class UI_Quad : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler
         EventHandler.instance.ClickedSlot(parentSlot);
     }
 
+    // 마우스 포인터 위치 검사하기
     void CheckMousePoint()
     {
         Vert v = Vert.Max;

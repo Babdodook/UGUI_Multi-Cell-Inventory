@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// 장비창 매니저
 public class EquipmentManager : MonoBehaviour
 {
     // 장착한 아이템들
@@ -23,6 +24,7 @@ public class EquipmentManager : MonoBehaviour
         }
     }
 
+    // 장비창 아이템 장착 중인지 검사
     public void CheckSlot(Transform eSlot)
     {
         UI_EquipmentSlot slotScript = eSlot.GetComponent<UI_EquipmentSlot>();
@@ -65,37 +67,6 @@ public class EquipmentManager : MonoBehaviour
                     SetItem(slotScript);
             }
         }
-        
-
-        /*
-        if (EventHandler.instance.SelectedItem != null)
-        {
-            if(slotScript.isEquiped)
-            {
-                if (slotScript.type == EventHandler.instance.GetItemType())
-                {
-                    SwapItem(slotScript, slotScript.itemCode);
-                }
-                else if (slotScript.type == ITEM_TYPE.Max)
-                {
-                    // 빈슬롯
-                    SetItem(slotScript, slotScript.itemCode);
-                }
-            }
-            else
-            {
-                if (slotScript.type == EventHandler.instance.GetItemType())
-                    SetItem(slotScript, slotScript.itemCode);
-            }
-        }
-        else
-        {
-            if (slotScript.isEquiped)
-            {
-                GetItem(slotScript, slotScript.itemCode);
-            }
-        }
-        */
     }
 
     // 장착중인 아이템과 드래그 중인 아이템 교체

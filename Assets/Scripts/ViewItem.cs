@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
+// 아이템 목록 버튼용 스크립트
 public class ViewItem : MonoBehaviour, IPointerClickHandler
 {
     public Image sprite;

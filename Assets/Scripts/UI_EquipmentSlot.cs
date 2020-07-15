@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class UI_EquipmentSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
+// 장비 슬롯
+public class UI_EquipmentSlot : MonoBehaviour, IPointerClickHandler
 {
     public string itemCode;
     public bool isEquiped;
@@ -15,18 +16,8 @@ public class UI_EquipmentSlot : MonoBehaviour, IPointerEnterHandler, IPointerExi
         isEquiped = false;
     }
 
-    public void OnPointerEnter(PointerEventData eventData)
-    {
-        
-    }
-
     public void OnPointerClick(PointerEventData eventData)
     {
         EventHandler.instance.ClickedEquipmentSlot(this.transform);
-    }
-
-    public void OnPointerExit(PointerEventData eventData)
-    {
-
     }
 }

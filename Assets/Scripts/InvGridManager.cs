@@ -15,12 +15,15 @@ public class ItemContainer
     }
 }
 
+// 인벤토리 슬롯 관리 매니저
 public class InvGridManager : MonoBehaviour
 {
+    // 생성할 슬롯 프로토타입
     public Transform SlotPrototype;
     public Transform SlotGrid;
     public Transform Items;
 
+    // 슬롯 그리드 사이즈
     public int GRIDSIZE_X;
     public int GRIDSIZE_Y;
     Vector3 slotOriginPosition;
@@ -54,6 +57,7 @@ public class InvGridManager : MonoBehaviour
     {
         SlotPrototype.gameObject.SetActive(false);
 
+        // 그리드 사이즈에 따라 슬롯 생성하기
         for (int y = 0; y < GRIDSIZE_Y; y++)
         {
             for (int x = 0; x < GRIDSIZE_X; x++)
@@ -80,6 +84,7 @@ public class InvGridManager : MonoBehaviour
         }
     }
 
+    // 아이템 슬롯에 위치시키기
     public void SetItemOnGrid(int leftX, int rightX, int downY, int upY)
     {
         SlotOnItem.Clear();
@@ -217,6 +222,7 @@ public class InvGridManager : MonoBehaviour
         SlotOnItem.Clear();
     }
 
+    // 스왑하려는 아이템 코드 알아내기
     string GetSwapCode()
     {
         for (int i = 0; i < SlotOnItem.Count; i++)
@@ -239,12 +245,13 @@ public class InvGridManager : MonoBehaviour
         {
             GetItemOnSlot(GetSwapCode());
 
-            // 컨테이너 생성
+            // 컨테이너 생성, 아이템과 해당 아이템이 올려질 슬롯 좌표저장용
             ItemContainer value = new ItemContainer();
 
             for (int i = 0; i < SlotOnItem.Count; i++)
             {
                 slotScript = SlotOnItem[i].GetComponent<UI_Slot>();
+                // 슬롯 사용하는 상태로 바꾸기
                 slotScript.SetInUse(EventHandler.instance.GetItemCode());
             }
 
@@ -275,7 +282,7 @@ public class InvGridManager : MonoBehaviour
         if (EventHandler.instance.SelectedItem == null)
             canSwapItem = false;
 
-        // 아이템 가져옴
+        // 아이템 정보 가져오기
         ItemContainer container = ItemDictionary[itemCode];
         if (canSwapItem)
             tempItem = container.item;
@@ -329,6 +336,7 @@ public class InvGridManager : MonoBehaviour
         Stack<Transform> Items = new Stack<Transform>();
         UI_Item itemScript;
 
+        // 아이템 타입 순서대로 스택에 저장
         for (int i = 0; i < (int)ITEM_TYPE.Max; i++)
         {
             // 아이템 딕셔너리에서 찾아봄
@@ -355,6 +363,7 @@ public class InvGridManager : MonoBehaviour
         SlotOnItem.Clear();
         for (int i = 0; i < Max; i++)
         {
+            // 스택에서 아이템 정보 가져오기
             itemScript = Items.Pop().GetComponent<UI_Item>();
             
             bool escapeFlag = false;
@@ -379,11 +388,11 @@ public class InvGridManager : MonoBehaviour
 
                                 slotScript = SlotArray[startY, startX].GetComponent<UI_Slot>();
                                 slotScript.itemCode = itemScript.itemInfo.code;
-                                slotScript.m_slotState = SLOT_STATE.inUse;
                                 slotScript.prevColor = Color.white;
                                 slotScript.SetColor(Color.blue);
                             }
                         }
+                        // 딕셔너리에 저장되있던 아이템의 슬롯 정보를 재배치된 슬롯 정보로 수정
                         ItemDictionary[itemScript.itemInfo.code].slots = new List<Transform>(SlotOnItem);
 
                         itemScript.gameObject.transform.position = GetPivotPosition();

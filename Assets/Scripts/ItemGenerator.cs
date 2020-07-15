@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 using System.IO;
 using UnityEngine.UI;
 
+// 제이슨 데이터 파싱하기 위한 클래스
 class ViewItemInfo
 {
     public string Sprite;
@@ -24,6 +25,7 @@ class ViewItemInfo
     }
 }
 
+// 아이템 생성 매니저
 public class ItemGenerator : MonoBehaviour
 {
     public Transform itemPrototype;
@@ -41,7 +43,7 @@ public class ItemGenerator : MonoBehaviour
     List<ViewItemInfo> BottomsList = new List<ViewItemInfo>();
     List<ViewItemInfo> FootwearList = new List<ViewItemInfo>();
 
-    Dictionary<ITEM_TYPE, List<ViewItemInfo>> ItemInfoListDictionary = new Dictionary<ITEM_TYPE, List<ViewItemInfo>>(new ItemTypeComparer());
+    // 아이템 생성용
     Dictionary<string, Transform> CreatedItemsDictionary = new Dictionary<string, Transform>();
 
     private void Awake()
@@ -51,9 +53,11 @@ public class ItemGenerator : MonoBehaviour
         itemPrototype.gameObject.SetActive(false);
         ScrollViewItemPrototype.gameObject.SetActive(false);
 
+        // 아이템 데이터 불러오기
         LoadItemData();
     }
 
+    // 카테고리 선택할시 보여줄 아이템 목록
     List<ViewItemInfo> GetCurrentList(ITEM_TYPE type)
     {
         List<ViewItemInfo> tempList = null;
@@ -88,6 +92,7 @@ public class ItemGenerator : MonoBehaviour
     // 스크롤에 표시할 아이템 만들기
     public void CreateItemOnScrollView(ITEM_TYPE type)
     {
+        // 아이템 타입 리스트 가져오기
         List<ViewItemInfo> infoList = GetCurrentList(type);
 
         ViewItem[] tempArray = ScrollContent.GetComponentsInChildren<ViewItem>();
@@ -102,12 +107,12 @@ public class ItemGenerator : MonoBehaviour
         {
             var item = Instantiate(ScrollViewItemPrototype);
 
+            // 아이템 정보 세팅
             item.GetComponent<ViewItem>().SetInfo(  infoList[i].Sprite,
                                                     infoList[i].Name,
                                                     infoList[i].Type,
                                                     infoList[i].SizeX,
                                                     infoList[i].SizeY );
-            //item.GetComponent<RectTransform>().anchoredPosition = new Vector3(originPos.x, originPos.y + 100 * i, 0);
 
             item.SetParent(ScrollContent);
             item.gameObject.SetActive(true);
@@ -137,8 +142,6 @@ public class ItemGenerator : MonoBehaviour
     // 아이템 생성하기
     public void CreateItem(ViewItem _item)
     {
-        //print(_item.t_name.text);
-
         var item = Instantiate(itemPrototype);
         item.position = itemPrototype.position;
         item.GetComponent<RectTransform>().sizeDelta = new Vector2(30 * _item.sizeX, 30 * _item.sizeY);
@@ -156,7 +159,7 @@ public class ItemGenerator : MonoBehaviour
         while (true)
         {
             _code = UnityEngine.Random.Range(0, 1000).ToString();
-            // 이미 있는 코드인지 확인
+            // 이미 있는 코드인지 확인, 코드 겹치지 않도록
             if(!CreatedItemsDictionary.ContainsKey(_code))
             {
                 break;
@@ -166,12 +169,14 @@ public class ItemGenerator : MonoBehaviour
 
         string key = itemScript.itemInfo.code;
         Transform value = item;
+        // 딕셔너리에 아이템 추가
         CreatedItemsDictionary.Add(key, value);
 
         item.gameObject.SetActive(true);
         EventHandler.instance.SetSelectedItem(item);
     }
 
+    // 아이템 제거하기
     public void RemoveItem(Transform item)
     {
         string key = item.GetComponent<UI_Item>().GetItemCode();

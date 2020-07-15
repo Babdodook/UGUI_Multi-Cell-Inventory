@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+// 슬롯 상태
 public enum SLOT_STATE
 {
-    notUse,
-    inUse,
+    notUse, // 사용중 아님
+    inUse,  // 사용중
 }
 
 public class UI_Slot : MonoBehaviour
@@ -24,6 +25,7 @@ public class UI_Slot : MonoBehaviour
         prevColor = frontImg.color;
     }
 
+    // 색상 바꾸기
     public void SetColor(Color _color)
     {
         frontImg.color = _color;

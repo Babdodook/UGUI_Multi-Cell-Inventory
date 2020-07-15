@@ -3,39 +3,30 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
+// 아이템 사이즈
 public class ItemSize
 {
     public int X;
     public int Y;
 }
 
+// 아이템
 public class UI_Item : MonoBehaviour, IPointerClickHandler
 {
+    // 아이템 데이터
     public Item itemInfo;
     public ItemSize SIZE;
-    //public ITEM_TYPE type;
-    //public string code;
-    //public int x;
-    //public int y;
     public bool m_isSelected = false;
 
-    private void Awake()
-    {
-
-        //itemInfo.code = code;
-        //itemInfo.type = type;
-        //SIZE.X = x;
-        //SIZE.Y = y;
-    }
-
+    // 아이템 클릭했을때
     public void OnPointerClick(PointerEventData eventData)
     {
-        //m_isSelected = !m_isSelected;
         EventHandler.instance.SetSelectedItem(this.transform);
     }
 
     private void Update()
     {
+        // 마우스 포인터 따라다니도록
         if(m_isSelected)
             transform.position = Input.mousePosition;
     }
